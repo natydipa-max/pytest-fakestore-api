@@ -62,6 +62,7 @@ return:
 * HTTP 200 OK
 * Empty response body
 
+This is not an application error, but a behavior of the API returning an empty response body with HTTP 200.
 This behavior causes `response.json()` in Python Requests to raise a `JSONDecodeError`.
 
 ---
@@ -95,10 +96,12 @@ No business validation errors are returned.
 
 The API returns HTTP 400 Bad Request only when the request body contains malformed JSON syntax.
 
-Example (invalid JSON sent intentionally to trigger 400):
+Example of an invalid JSON (causes HTTP 400 due to parsing failure):
 
-Payload:
+```text
 {"price": 39,87}
+```
+This is not a business validation error, but a JSON parsing error handled by the server before request processing.
 
 ---
 
@@ -112,9 +115,29 @@ PUT requests behave similarly to POST:
 
 ---
 
+## Testing Strategy
+
+All API tests in this framework follow a consistent 3-step validation approach:
+
+### 1. Status Code Validation
+Each test first asserts the HTTP status code to validate the correctness of the API response at the protocol level.
+
+### 2. Schema Validation (when applicable)
+If the response contains a body, it is validated using Pydantic models to ensure the response structure matches the expected schema.
+
+### 3. Business Rules Validation
+When applicable, tests assert business logic based on the API response data (e.g., field values, relationships, or state changes).
+
+This approach ensures a clear separation between:
+- HTTP protocol validation
+- Data contract validation
+- Business logic validation
+
+---
+
 ## Negative Testing Strategy
 
-Negative tests are limited to malformed JSON scenarios because:
+Negative tests focus on malformed JSON scenarios due to lack of business validation in the API.
 
 * The API does not implement business validation
 * Only JSON parsing errors return HTTP 400
@@ -128,7 +151,8 @@ Example tests:
 
 ## Key Design Decisions
 
-* ProductClient only handles valid business operations
+* ProductClient provides a thin abstraction over HTTP operations for the Products endpoint.
+  Business validation is not enforced at client level.
 * Malformed JSON tests bypass the client layer intentionally
 * Pydantic is used only for valid request/response modeling
 * Exploratory findings are documented rather than assumed
