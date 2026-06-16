@@ -8,3 +8,5 @@ class ProductsClient(BaseClient):
 
     def get_product(self, product_id: int):
         return self.get(f"/products/{product_id}")
+
+

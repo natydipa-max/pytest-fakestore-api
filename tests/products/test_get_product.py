@@ -21,4 +21,4 @@ def test_get_all_products(products_client):
         for product in response.json()
    ]
 
-    assert len(products) > 0 
+    assert len(products) > 0
