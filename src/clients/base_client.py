@@ -11,6 +11,9 @@ class BaseClient:
     def __init__(self):
         self.session = requests.Session()
         self.base_url = BASE_URL
+        self.session.headers.update({
+            "User-Agent": "Mozilla/5.0"
+        })
 
     def get(self, endpoint: str):
         return self.session.get(
