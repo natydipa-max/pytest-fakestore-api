@@ -1,7 +1,5 @@
 # Pytest Fake Store API Framework
 
-![API Tests](https://github.com/natydipa-max/pytest-fakestore-api/actions/workflows/api-tests.yml/badge.svg)
-
 ## Overview
 
 This project is an API testing framework built with Pytest and Requests against the Fake Store API.
@@ -158,6 +156,16 @@ Example tests:
 * Malformed JSON tests bypass the client layer intentionally
 * Pydantic is used only for valid request/response modeling
 * Exploratory findings are documented rather than assumed
+
+---
+
+## CI Execution
+
+GitHub Actions integration was evaluated during development.
+
+Execution against Fake Store API currently receives HTTP 403 responses from GitHub-hosted runners, preventing reliable CI execution.
+
+Since this behavior is external to the framework implementation, CI configuration was intentionally excluded from this repository.
 
 ---
 
