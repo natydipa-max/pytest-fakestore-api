@@ -21,4 +21,10 @@ class ProductsClient(BaseClient):
     def delete_product(self, product_id: int):
         return self.delete(f"/products/{product_id}")
 
-
+    def send_raw(self, method: str, endpoint: str, raw_body: str):
+        return self.session.request(
+            method=method,
+            url=f"{self.base_url}{endpoint}",
+            data=raw_body,
+            headers={"Content-Type": "application/json"},
+        )

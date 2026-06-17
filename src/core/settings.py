@@ -1,2 +1,4 @@
-BASE_URL = "https://fakestoreapi.com"
-DEFAULT_TIMEOUT = 10
+import os
+
+BASE_URL = os.getenv("BASE_URL", "https://fakestoreapi.com")
+DEFAULT_TIMEOUT = int(os.getenv("DEFAULT_TIMEOUT", "10"))

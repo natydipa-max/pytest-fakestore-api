@@ -7,8 +7,7 @@ def test_delete_product(products_client):
 
     assert response.status_code == 200
 
-    if response.text:
-        deleted = ProductModel.model_validate(
+    deleted = ProductModel.model_validate(
             response.json())
 
-        assert deleted.id == 1
+    assert deleted.id == 1

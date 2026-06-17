@@ -1,5 +1,7 @@
 # Pytest Fake Store API Framework
 
+![API Tests](https://github.com/natydipa-max/pytest-fakestore-api/actions/workflows/api-tests.yml/badge.svg)
+
 ## Overview
 
 This project is an API testing framework built with Pytest and Requests against the Fake Store API.
